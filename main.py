@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.chains.graph_qa.cypher import GraphCypherQAChain
+from langchain_community.chains.graph_qa.cypher import GraphCypherQAChain
 from langchain_core.runnables import (
     RunnableBranch,
     RunnableLambda,
@@ -10,7 +10,7 @@ from langchain_core.runnables import (
     RunnablePassthrough,
 )
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
-from langchain_core.pydantic_v1 import BaseModel, Field
+from pydantic import BaseModel, Field
 from typing import Tuple, List
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.output_parsers import StrOutputParser
@@ -118,7 +118,7 @@ def _format_chat_history(chat_history: List[Tuple[str, str]]) -> List:
     
 def main():
     
-    docs = load_docs('docs/Evan Patel.pdf')
+    docs = load_docs('docs/New+Web+Dev+Resources.pdf')
     graph = Neo4jGraph()
     llm = ChatOpenAI(model_name='gpt-4o', temperature=0)
     add_graph_documents(docs, graph, llm)
